@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{41C8ECC5-C8A5-4602-B95B-69DD8E898299}</ProjectGuid>
+    <ProjectGuid>{283B362A-4BE2-4114-A31E-241D617E9CF4}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>oopcs_lecture1</RootNamespace>
-    <AssemblyName>oopcs-lecture1</AssemblyName>
+    <RootNamespace>Workshop4</RootNamespace>
+    <AssemblyName>Workshop4</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Workshop4.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -42,11 +45,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="4.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RationalLibrary\RationalLibrary.csproj">
+      <Project>{d13810be-d234-492b-a93f-599300dae52a}</Project>
+      <Name>RationalLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Workshop3\Workshop3.csproj">
+      <Project>{018f5e8b-aa19-46f9-a41d-e7fdc95afce3}</Project>
+      <Name>Workshop3</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
