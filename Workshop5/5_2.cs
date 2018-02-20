@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 
-namespace Bank
+namespace Workshop5
 {
 
     public class Account
@@ -83,7 +84,7 @@ namespace Bank
                 another.Deposit(amount);
         }
 
-        public double CalculateInterest()
+        public virtual double CalculateInterest()
         {
             return (Balance * 1 / 100);
         }
@@ -110,7 +111,7 @@ namespace Bank
         {
         }
 
-        public new double CalculateInterest()
+        public override double CalculateInterest()
         {
             return (Balance * 0.25 / 100);
         }
@@ -119,6 +120,28 @@ namespace Bank
         {
             string m = String.Format
                          ("[CurrentAccount:accountNumber={0},accountHolder={1},balance={2}]",
+                          AccountNumber, AccountHolder.Show(), Balance);
+            return (m);
+        }
+    }
+
+    public class SavingsAccount : Account
+    {
+
+        public SavingsAccount(string number, Customer holder, double bal)
+            : base(number, holder, bal)
+        {
+        }
+
+        public override double CalculateInterest()
+        {
+            return (Balance * 1 / 100);
+        }
+
+        public override string Show()
+        {
+            string m = String.Format
+                         ("[SavingsAccount:accountNumber={0},accountHolder={1},balance={2}]",
                           AccountNumber, AccountHolder.Show(), Balance);
             return (m);
         }
@@ -140,7 +163,7 @@ namespace Bank
             return (true);
         }
 
-        public new double CalculateInterest()
+        public override double CalculateInterest()
         {
             return ((Balance > 0) ?
                     (Balance * interestRate / 100) :
@@ -255,32 +278,101 @@ namespace Bank
     {
         private string branchName;
         private string branchManager;
-        private ArrayList bankAccounts = new ArrayList();
-
-        // Properties
+        private List<Account> bankAccounts = new List<Account>();
 
         // Constructors
+        public BankBranch(string branchName, string branchManager, List<Account> bankAccounts)
+        {
+            this.branchName = branchName;
+            this.branchManager = branchManager;
+            this.bankAccounts = bankAccounts;
+        }
+
+        // Properties
+        public string BranchName
+        {
+            get
+            {
+                return branchName;
+            }
+            set
+            {
+                branchName = value;
+            }
+        }
+        public string BranchManager
+        {
+            get
+            {
+                return branchManager;
+            }
+            set
+            {
+                branchManager = value;
+            }
+        }
+        public List<Account> BankAccounts
+        {
+            get
+            {
+                return bankAccounts;
+            }
+            set
+            {
+                bankAccounts = value;
+            }
+        }
+
+        
 
         // Methods
         public void AddAccount(Account a)
         {
-
+            bankAccounts.Add(a);
         }
         public void PrintCustomers()
         {
-
+            for (int i = 0; i < bankAccounts.Count; i++)
+            {
+                Console.Write("{0}, ", bankAccounts[i].AccountHolder.Name);
+            }
+            Console.WriteLine();
         }
-        public void TotalDeposits()
+        public double TotalDeposits()
         {
-
+            double totalDeposits = 0;
+            for (int i = 0; i < bankAccounts.Count; i++)
+            {
+                if (bankAccounts[i].Balance > 0)
+                {
+                    totalDeposits += bankAccounts[i].Balance;
+                }
+            }
+            return totalDeposits;
         }
-        public void TotalInterestPaid()
+        public double TotalInterestPaid()
         {
-
+            double total = 0;
+            for (int i = 0; i < bankAccounts.Count; i++)
+            {
+                if (bankAccounts[i].CalculateInterest() > 0)
+                {
+                    total += bankAccounts[i].CalculateInterest();
+                }
+            }
+            return total;
         }
-        public void TotalInterestEarned()
+        public double TotalInterestEarned()
         {
-
+            double total = 0;
+            for (int i = 0; i < bankAccounts.Count; i++)
+            {
+                if (bankAccounts[i].CalculateInterest() < 0)
+                {
+                    total -= bankAccounts[i].CalculateInterest();
+                }
+            }
+            return total;
         }
     }
 
@@ -291,15 +383,31 @@ namespace Bank
         {
             Customer cus1 = new Customer("Tan Ah Kow", "2 Rich Street",
                                       "P123123", 20);
+            SavingsAccount a1 = new SavingsAccount("S0000223", cus1, 2000);
+
             Customer cus2 = new Customer("Kim May Mee", "89 Gold Road",
                                       "P334412", 60);
+            CurrentAccount a2 = new CurrentAccount("O1230124", cus2, 2000);
 
-            Account a1 = new Account("S0000223", cus1, 2000);
+            Customer cus3 = new Customer("Jeremy Tan", "89 Tanjong Pagar",
+                                      "P126838", 30);
+            OverdraftAccount a3 = new OverdraftAccount("C1230125", cus3, -2000);
+
             Console.WriteLine(a1.CalculateInterest());
-            OverdraftAccount a2 = new OverdraftAccount("O1230124", cus1, 2000);
             Console.WriteLine(a2.CalculateInterest());
-            CurrentAccount a3 = new CurrentAccount("C1230125", cus2, 2000);
             Console.WriteLine(a3.CalculateInterest());
+
+            List<Account> list1 = new List<Account>();
+            list1.Add(a1);
+            list1.Add(a2);
+            list1.Add(a3);
+            // create new bankbranch
+            BankBranch bank1 = new BankBranch("POSB", "Your Father", list1);
+
+            bank1.PrintCustomers();
+            Console.WriteLine("The total deposits for {0} is {1:C}.", bank1.BranchName, bank1.TotalDeposits());
+            Console.WriteLine("The total interest paid by {0} is {1:C}.", bank1.BranchName, bank1.TotalInterestPaid());
+            Console.WriteLine("The total interest earned by {0} is {1:C}.", bank1.BranchName, bank1.TotalInterestEarned());
         }
     }
 }
