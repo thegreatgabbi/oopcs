@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Workshop5.Testing.MainClass</StartupObject>
+    <StartupObject>Workshop5.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

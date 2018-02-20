@@ -281,10 +281,13 @@ namespace Workshop5
         private List<Account> bankAccounts = new List<Account>();
 
         // Constructors
-        public BankBranch(string branchName, string branchManager, List<Account> bankAccounts)
+        public BankBranch(string branchName, string branchManager)
         {
             this.branchName = branchName;
             this.branchManager = branchManager;
+        }
+        public BankBranch(string branchName, string branchManager, List<Account> bankAccounts) : this(branchName, branchManager)
+        {
             this.bankAccounts = bankAccounts;
         }
 
@@ -397,12 +400,16 @@ namespace Workshop5
             Console.WriteLine(a2.CalculateInterest());
             Console.WriteLine(a3.CalculateInterest());
 
-            List<Account> list1 = new List<Account>();
-            list1.Add(a1);
-            list1.Add(a2);
-            list1.Add(a3);
+            //List<Account> list1 = new List<Account>();
+            //list1.Add(a1);
+            //list1.Add(a2);
+            //list1.Add(a3);
+
             // create new bankbranch
-            BankBranch bank1 = new BankBranch("POSB", "Your Father", list1);
+            BankBranch bank1 = new BankBranch("POSB", "Your Father");
+            bank1.AddAccount(a1);
+            bank1.AddAccount(a2);
+            bank1.AddAccount(a3);
 
             bank1.PrintCustomers();
             Console.WriteLine("The total deposits for {0} is {1:C}.", bank1.BranchName, bank1.TotalDeposits());
