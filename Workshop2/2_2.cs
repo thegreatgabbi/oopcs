@@ -44,7 +44,7 @@ namespace Workshop2
         // methods
         public double Area()
         {
-            double p = Perimeter();
+            double p = Perimeter() / 2;
             double area = Math.Sqrt(p * (p - side1) * (p - side2) * (p - side3));
             return area;
         }
