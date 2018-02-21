@@ -20,6 +20,13 @@ namespace Workshop6
         int side2;
         int side3;
 
+        public Triangle(int side1, int side2, int side3)
+        {
+            this.side1 = side1;
+            this.side2 = side2;
+            this.side3 = side3;
+        }
+
         public override float Area()
         {
             float p = this.Perimeter() /2;
@@ -36,6 +43,12 @@ namespace Workshop6
     {
         int length;
         int breadth;
+
+        public Rectangle(int length, int breadth)
+        {
+            this.length = length;
+            this.breadth = breadth;
+        }
 
         public override float Area()
         {
@@ -59,4 +72,13 @@ namespace Workshop6
     // e. What difference does a Shape abstract base class make?
     // A Shape abstract base class forces its child classes to implement Shape's abstract methods
 
+    public class Test1
+    {
+        static void Main()
+        {
+            Rectangle r = new Rectangle(4, 5);
+            Triangle t = new Triangle(3, 4, 5);
+            
+        }
+    }
 }
