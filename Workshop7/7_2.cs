@@ -7,7 +7,7 @@ namespace Workshop7
 {
     class NegativeBalanceException : ApplicationException
     {
-        public NegativeBalanceException()
+        public NegativeBalanceException() : base()
         {
         }
         public NegativeBalanceException(string message) : base(message)
@@ -74,7 +74,10 @@ namespace Workshop7
         {
             balance = balance + amount;
         }
-
+        /// <summary>
+        /// Withdraws amount from account.
+        /// </summary>
+        /// <exception cref="NegativeBalanceException">Yay for exception</exception>
         public virtual void Withdraw(double amount)
         {
             if (amount < Balance)

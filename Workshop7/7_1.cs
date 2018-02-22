@@ -15,15 +15,15 @@ namespace Workshop7
 
     class InvalidSideException : ApplicationException
     {
-        public InvalidSideException()
+        public InvalidSideException() : base()
         {
 
         }
-        public InvalidSideException(string message)
+        public InvalidSideException(string message) : base(message)
         {
 
         }
-        public InvalidSideException(string message, Exception innerExc)
+        public InvalidSideException(string message, Exception innerExc) : base(message, innerExc)
         {
 
         }
@@ -31,15 +31,15 @@ namespace Workshop7
 
     class NegativeSideException : ApplicationException
     {
-        public NegativeSideException()
+        public NegativeSideException() : base()
         {
 
         }
-        public NegativeSideException(string message)
+        public NegativeSideException(string message) : base(message)
         {
 
         }
-        public NegativeSideException(string message, Exception innerExc)
+        public NegativeSideException(string message, Exception innerExc) : base(message, innerExc)
         {
 
         }
